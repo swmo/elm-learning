@@ -33,7 +33,7 @@ type Msg
 type alias Model =
     { message : String
     , firstname : Maybe String
-    , age : Maybe Int
+    , age : Maybe String
     }
 
 
@@ -65,9 +65,9 @@ viewFirstnameInput firstname =
 
 
 
-viewAgeInput : Maybe Int -> Html.Html Msg
+viewAgeInput : Maybe String -> Html.Html Msg
 viewAgeInput age =
-    Html.input [ onInput MsgNewAgeAsString, value (String.fromInt (Maybe.withDefault 0 age)) ] []
+    Html.input [ onInput MsgNewAgeAsString, value (maybeDefaultEmptyString age) ] []
 
 
 viewSupriseButton : Html.Html Msg
@@ -89,12 +89,12 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         MsgSurprise ->
-            case model.age of
+            case (String.toInt (maybeDefaultEmptyString model.age)) of
                 Just aAge ->
                     case model.firstname of
                         Just aName ->
                             { model
-                                | message = "Happy Birthday?" ++ " " ++ aName ++ " to age of " ++ String.fromInt aAge
+                                | message = "Happy Birthday?" ++ " " ++ aName ++ " to age of " ++  (maybeDefaultEmptyString model.age)
                             }
 
                         Nothing ->
@@ -125,11 +125,11 @@ update msg model =
             case String.toInt newValue of
                 Just anInt ->
                     { model
-                        | age = Just anInt
+                        | age = Just newValue
                     }
 
                 Nothing ->
                     { model
-                        | age = Nothing
+                        | age = Just newValue
                         , message = "invalid age"
                     }

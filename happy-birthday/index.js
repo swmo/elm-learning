@@ -10556,12 +10556,16 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
+var $author$project$Main$maybeDefaultEmptyString = function (maybeString) {
+	return A2($elm$core$Maybe$withDefault, '', maybeString);
+};
 var $elm$core$String$trim = _String_trim;
 var $author$project$Main$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
 			case 'MsgSurprise':
-				var _v1 = model.age;
+				var _v1 = $elm$core$String$toInt(
+					$author$project$Main$maybeDefaultEmptyString(model.age));
 				if (_v1.$ === 'Just') {
 					var aAge = _v1.a;
 					var _v2 = model.firstname;
@@ -10570,7 +10574,7 @@ var $author$project$Main$update = F2(
 						return _Utils_update(
 							model,
 							{
-								message: 'Happy Birthday?' + (' ' + (aName + (' to age of ' + $elm$core$String$fromInt(aAge))))
+								message: 'Happy Birthday?' + (' ' + (aName + (' to age of ' + $author$project$Main$maybeDefaultEmptyString(model.age))))
 							});
 					} else {
 						return _Utils_update(
@@ -10601,12 +10605,15 @@ var $author$project$Main$update = F2(
 					return _Utils_update(
 						model,
 						{
-							age: $elm$core$Maybe$Just(anInt)
+							age: $elm$core$Maybe$Just(newValue)
 						});
 				} else {
 					return _Utils_update(
 						model,
-						{age: $elm$core$Maybe$Nothing, message: 'invalid age'});
+						{
+							age: $elm$core$Maybe$Just(newValue),
+							message: 'invalid age'
+						});
 				}
 		}
 	});
@@ -10620,16 +10627,12 @@ var $author$project$Main$viewAgeInput = function (age) {
 			[
 				$elm$html$Html$Events$onInput($author$project$Main$MsgNewAgeAsString),
 				$elm$html$Html$Attributes$value(
-				$elm$core$String$fromInt(
-					A2($elm$core$Maybe$withDefault, 0, age)))
+				$author$project$Main$maybeDefaultEmptyString(age))
 			]),
 		_List_Nil);
 };
 var $author$project$Main$MsgNewName = function (a) {
 	return {$: 'MsgNewName', a: a};
-};
-var $author$project$Main$maybeDefaultEmptyString = function (maybeString) {
-	return A2($elm$core$Maybe$withDefault, '', maybeString);
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
 var $author$project$Main$viewFirstnameInput = function (firstname) {
