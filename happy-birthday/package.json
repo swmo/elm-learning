@@ -1,0 +1,19 @@
+{
+  "name": "happy-birthday",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "elm make src/Main.elm --output=index.js",
+    "dev": "elm-live src/Main.elm -- --debug --output=index.js"
+  
+  },
+  "devDependencies": {
+    "elm-live": "^4.0.2"
+  },
+
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
