@@ -1,0 +1,16 @@
+{
+  "name": "my-dog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "elm-live src/Main.elm -- --debug --output=index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "elm-live" : "^4.0.2"
+  }
+}
